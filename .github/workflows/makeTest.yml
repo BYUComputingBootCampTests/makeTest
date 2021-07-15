@@ -180,4 +180,5 @@ jobs:
       run: node .cbc/removeAllLabels.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }}
       
     - name: Add "checkComplete" label
+      if: always()
       run: node .cbc/addLabel.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} checkComplete
