@@ -46,7 +46,11 @@ jobs:
       run: node .cbc/getFile.js ${{ secrets.AUTH_TOKEN }} ${{ steps.repo.outputs.content }} MakeFiles/MakeFile1.txt > Makefile
 
     - name: Run Make
+      id: runMake
       run: make
+
+    - name: Make Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} 'Makefile1.txt ran'
 
     - name: Run program
       run: ./tree > output.log
@@ -102,10 +106,14 @@ jobs:
       if: always()
       run: node .cbc/removeAllLabels.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }}
     
+    - name: Add Failure Comment on Make run
+      if: always() && steps.runMake.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} 'Error - Makefile1.txt didn't run'
+    
     - name: Close Pull Request
       if: always()
       uses: peter-evans/close-pull@v1
       with:
         pull-request-number:  ${{ steps.number.outputs.content }}
         comment: Auto-closing pull request after submission
-        delete-branch: true
+        delete-branch: false
