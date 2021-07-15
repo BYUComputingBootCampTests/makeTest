@@ -21,6 +21,9 @@ jobs:
     - name: Install xmlhttprequest
       run: npm install xmlhttprequest
     
+    - name: Install node-fetch
+      run: npm install node-fetch
+    
       #Get Repository that isn't currently being checked
     - name: Get a Pull Request's Repo Name that isn't already being checked
       run: node .cbc/getRepoInfo.js ${{ secrets.AUTH_TOKEN }} full_name > repo.txt
