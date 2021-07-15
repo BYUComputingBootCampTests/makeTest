@@ -1,0 +1,111 @@
+name: Make Test
+
+on: 
+  repository_dispatch:
+    types: 
+      [test_pr]
+
+jobs:
+  runTests:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2.1.5
+
+    - name: Install octokit/core.js
+      run: npm install @octokit/core
+    
+    - name: Install xmlhttprequest
+      run: npm install xmlhttprequest
+
+    - name: Get a Pull Request's Repo Name that isn't already being checked
+      run: node .cbc/getRepoInfo.js ${{ secrets.AUTH_TOKEN }} full_name > repo.txt
+
+    - name: Save Repository name as Output Variable
+      id: repo
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: repo.txt
+    
+    - name: Get the Pull Request's Number
+      run: node .cbc/getRepoInfo.js ${{ secrets.AUTH_TOKEN }} number > number.txt
+
+    - name: Save Repository Number as Output Variable
+      id: number
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: number.txt
+
+    - name: Add "currentlyBeingChecked" label
+      run: node .cbc/addLabel.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} currentlyBeingChecked
+
+    - name: Get Make File for Problem 1
+      run: node .cbc/getFile.js ${{ secrets.AUTH_TOKEN }} ${{ steps.repo.outputs.content }} MakeFiles/MakeFile1.txt > Makefile
+
+    - name: Run Make
+      run: make
+
+    - name: Run program
+      run: ./tree > output.log
+
+    - name: Read Output
+      id: output
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: output.log
+
+    - name: Assert Proper Output
+      uses: therussiankid92/gat@v1.5
+      with:
+        assertion: should.equal
+        actual: ${{ steps.output.outputs.content }}
+        expected: ${{ secrets.PROGRAM_OUTPUT }}
+
+    - name: Make clean
+      run: make clean
+
+    - name: Find File
+      continue-on-error: true
+      run: |
+        echo "Found? " > clean.txt
+        test -f tree && echo "Yes" >> clean.txt
+
+    - name: Read Find Output
+      id: find
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: clean.txt
+
+    - name: Assert File Gone
+      uses: therussiankid92/gat@v1.5
+      with:
+        assertion: should.equal
+        actual: ${{ steps.find.outputs.content }}
+        expected: Found?
+    
+    - name: Get email.txt
+      run: node .cbc/getFile.js ${{ secrets.AUTH_TOKEN }} ${{ steps.repo.outputs.content }} email.txt > email.txt
+
+    - name: Save Email as Output Variable
+      id: userEmail
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: email.txt
+
+    - name: Issue Badge
+      run: node .cbc/badgeAPI.js ${{secrets.USERNAME}} ${{secrets.PASSWORD}} ${{ steps.userEmail.outputs.content }}
+    
+    - name: Remove Previous Labels
+      if: always()
+      run: node .cbc/removeAllLabels.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }}
+    
+    - name: Close Pull Request
+      if: always()
+      uses: peter-evans/close-pull@v1
+      with:
+        pull-request-number:  ${{ steps.number.outputs.content }}
+        comment: Auto-closing pull request after submission
+        delete-branch: true
