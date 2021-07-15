@@ -108,7 +108,7 @@ jobs:
     
     - name: Add Failure Comment on Make run
       if: always() && steps.runMake.outcome == 'failure'
-      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} 'Error - Makefile1.txt didn't run'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile1.txt didn't run"
     
     - name: Close Pull Request
       if: always()
