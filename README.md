@@ -21,13 +21,14 @@ Start out by entering your email into the 'email.txt' file, so that we can prope
 
 ## Problem 1 - Makefile
 
-Write a Makefile that implements the following functionality. You'll store the contents of this Makefile at "MakeFiles/MakeFile1.txt". It should have two functions:
+Write a Makefile that implements the following functionality. You'll store the contents of this Makefile at "MakeFiles/MakeFile1.txt". It
+should be very simple, and shouldn't use variables, automatic variables, pattern matching, or Makefile functions. It should have the following two rules:
 
 #### tree:
-This function should be the first function in the file. It should be called "tree", and it should generate an executable called "tree" with the g++ compiler. It should use 7 files to do so, including leaves.c, leaves.h, branches.c, branches.h, roots.c, roots.h, and main.c.
+This rule should be the first rule in the file. It should be called "tree", and it should generate an executable called "tree" with the g++ compiler. It should use 7 files to do so, including leaves.c, leaves.h, branches.c, branches.h, roots.c, roots.h, and main.c.
 
 #### clean:
-This function should be called "clean", and it should remove the "tree" executable if there is one.
+This rule should be called "clean", and it should remove the "tree" executable if there is one.
 
 ## Submitting
 
