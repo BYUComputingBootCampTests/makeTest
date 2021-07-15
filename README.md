@@ -24,7 +24,7 @@ Start out by entering your email into the 'email.txt' file, so that we can prope
 Write a Makefile that implements the following functionality. You'll store the contents of this Makefile at "MakeFiles/MakeFile1.txt". It should have two functions:
 
 #### tree:
-This function should be the first function in the file. It should be called "tree", and it should generate an executable called "tree" with the g++ compiler. It should use 9 files to do so, including leaves.c, leaves.h, branches.c, branches.h, roots.c, roots.h, and main.c.
+This function should be the first function in the file. It should be called "tree", and it should generate an executable called "tree" with the g++ compiler. It should use 7 files to do so, including leaves.c, leaves.h, branches.c, branches.h, roots.c, roots.h, and main.c.
 
 #### clean:
 This function should be called "clean", and it should remove the "tree" executable if there is one.
