@@ -46,13 +46,15 @@ repository that should run every 10 minutes: it will check your code, and close 
 pull request when its finished. So after a bit, check the Pull Request to see the results. 
 It will have comments describing which parts of the test you passed.
 
-If you passed all of the checks, then congradulations! You've passed the Make test, and you have been certified
+### If you passed...
+Congradulations! You've passed the Make test, and you have been certified
 by the BYU Computing BootCamp to have "Make" Knowledge. You should recieve an email with your badge contained inside. The
 Pull Request has a comment with the email that the badge was sent to, so if you didn't recieve it, check to make sure
 you entered your email correctly. Show off the "Make" badge to potential employers, or use it with other Computing BootCamp 
 badges to gain the "Software Development Knowledge" badge!
 
-If you didn't pass, the Pull Request comments will let you know that you failed a check somewhere. You might have deleted or renamed 
+### If you didn't pass...
+Don't worry, you'll get there eventually! You probably just have a small mistake. You might have deleted or renamed 
 one of the passoff files, forgot to implement a function, or missed a bug in your code! Whatever it is, you'll have to make a few 
 changes to your code and try again. Check in the Pull Request to see which part of the passoff you failed at, and then try to
 duplicate the results on your local machine (by looking at the pass-off workflow files). Compare your output on your machine to
