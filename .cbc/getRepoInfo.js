@@ -3,7 +3,7 @@ const { Octokit } = require("@octokit/core");
 const getRepoInfo = async (authToken, infoNeeded) => {
     const octokit = new Octokit({auth: authToken});
     const response = await octokit.request("GET /repos/{owner}/{repo}/pulls?state=open", {
-        owner: "ComputingBootCampTests",
+        owner: "BYUComputingBootCampTests",
         repo: "makeTest"
       });
 

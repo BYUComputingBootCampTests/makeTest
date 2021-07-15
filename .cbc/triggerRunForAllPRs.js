@@ -3,7 +3,7 @@ const { Octokit } = require("@octokit/core");
 const triggerRunForAllPRs = async (authToken) => {
     const octokit = new Octokit({auth: authToken});
     const response = await octokit.request("GET /repos/{owner}/{repo}/pulls?state=open", {
-        owner: "ComputingBootCampTests",
+        owner: "BYUComputingBootCampTests",
         repo: "makeTest"
       });
 
@@ -13,7 +13,7 @@ const triggerRunForAllPRs = async (authToken) => {
     for(let i = 0; i < numberOfPRs; i++) {
         const octokitMakeTest = new Octokit({auth: authToken});
         const responseNew = await octokitMakeTest.request("POST /repos/{owner}/{repo}/dispatches", {
-            owner: "ComputingBootCampTests",
+            owner: "BYUComputingBootCampTests",
             repo: "makeTest",
             event_type: "test_pr"
         });
