@@ -1,12 +1,12 @@
 const { Octokit } = require("@octokit/core");
 
-const addLabel = async (authToken, issueNumber, labelToAdd) => {
+const makeComment = async (authToken, issueNumber, comment) => {
     const octokit = new Octokit({auth: authToken});
-    const response = await octokit.request("POST /repos/{owner}/{repo}/issues/{issue_number}/labels", {
+    const response = await octokit.request("POST /repos/{owner}/{repo}/issues/{issue_number}/comments", {
         owner: "BYUComputingBootCampTests",
         repo: "makeTest",
         issue_number: issueNumber,
-        labels: [labelToAdd]
+        body: comment
       });
 
 }
@@ -14,5 +14,5 @@ const addLabel = async (authToken, issueNumber, labelToAdd) => {
 // Start
 var authToken = process.argv[2];
 var issueNumber = process.argv[3];
-var labelToAdd = process.argv[4];
-addLabel(authToken, issueNumber, labelToAdd);
+var comment = process.argv[4];
+makeComment(authToken, issueNumber, comment);

@@ -20,7 +20,8 @@ jobs:
     
     - name: Install xmlhttprequest
       run: npm install xmlhttprequest
-
+    
+      #Get Repository that isn't currently being checked
     - name: Get a Pull Request's Repo Name that isn't already being checked
       run: node .cbc/getRepoInfo.js ${{ secrets.AUTH_TOKEN }} full_name > repo.txt
 
@@ -42,14 +43,27 @@ jobs:
     - name: Add "currentlyBeingChecked" label
       run: node .cbc/addLabel.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} currentlyBeingChecked
 
+      #Problem 1 Testing
     - name: Get Make File for Problem 1
+      id: getMakeFile1
       run: node .cbc/getFile.js ${{ secrets.AUTH_TOKEN }} ${{ steps.repo.outputs.content }} MakeFiles/MakeFile1.txt > Makefile
 
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile1.txt found"
+
     - name: Run Make
+      id: runMake
       run: make
 
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile1.txt ran"
+
     - name: Run program
+      id: runProgram
       run: ./tree > output.log
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "tree executable ran"
 
     - name: Read Output
       id: output
@@ -58,14 +72,22 @@ jobs:
         path: output.log
 
     - name: Assert Proper Output
+      id: properOutput
       uses: therussiankid92/gat@v1.5
       with:
         assertion: should.equal
         actual: ${{ steps.output.outputs.content }}
         expected: ${{ secrets.PROGRAM_OUTPUT }}
+    
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "tree executable output is correct"
 
     - name: Make clean
+      id: makeClean
       run: make clean
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile1.txt clean function ran"
 
     - name: Find File
       continue-on-error: true
@@ -80,13 +102,19 @@ jobs:
         path: clean.txt
 
     - name: Assert File Gone
+      id: fileGone
       uses: therussiankid92/gat@v1.5
       with:
         assertion: should.equal
         actual: ${{ steps.find.outputs.content }}
         expected: Found?
     
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile1.txt clean function deleted the tree executable"
+
+      #Issue Badge  
     - name: Get email.txt
+      id: getEmail
       run: node .cbc/getFile.js ${{ secrets.AUTH_TOKEN }} ${{ steps.repo.outputs.content }} email.txt > email.txt
 
     - name: Save Email as Output Variable
@@ -94,18 +122,59 @@ jobs:
       uses: juliangruber/read-file-action@v1
       with:
         path: email.txt
+    
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Email found - ${{ steps.userEmail.outputs.content }}"
 
     - name: Issue Badge
+      id: issueBadge
       run: node .cbc/badgeAPI.js ${{secrets.USERNAME}} ${{secrets.PASSWORD}} ${{ steps.userEmail.outputs.content }}
     
-    - name: Remove Previous Labels
-      if: always()
-      run: node .cbc/removeAllLabels.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }}
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Badge Issued. Congraduations!"
     
+      #Failure Output for Problem 1
+    - name: Failure Comment
+      if: always() && steps.getMakeFile1.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - No Makefile1.txt found"
+
+    - name: Failure Comment
+      if: always() && steps.runMake.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile1.txt didn't run"
+    
+    - name: Failure Comment
+      if: always() && steps.runProgram.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - tree executable crashed"
+    
+    - name: Failure Comment
+      if: always() && steps.properOutput.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - tree executable output was incorrect"
+    
+    - name: Failure Comment
+      if: always() && steps.makeClean.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile1.txt clean didn't run"
+    
+    - name: Failure Comment
+      if: always() && steps.fileGone.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile1.txt clean didn't delete tree executable"
+
+    - name: Failure Comment
+      if: always() && steps.getEmail.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - No email.txt found"
+
+    - name: Failure Comment
+      if: always() && steps.issueBadge.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Badge issue failed - Email Address wasn't valid"
+
+      #Close Pull Request
     - name: Close Pull Request
       if: always()
       uses: peter-evans/close-pull@v1
       with:
         pull-request-number:  ${{ steps.number.outputs.content }}
         comment: Auto-closing pull request after submission
-        delete-branch: true
+        delete-branch: false
+
+    - name: Remove Previous Labels
+      if: always()
+      run: node .cbc/removeAllLabels.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }}
