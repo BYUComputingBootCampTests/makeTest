@@ -59,7 +59,7 @@ one of the passoff files, forgot to implement a function, or missed a bug in you
 changes to your code and try again. Check in the Pull Request to see which part of the passoff you failed at, and then try to
 duplicate the results on your local machine (by looking at the pass-off workflow files). Compare your output on your machine to
 the intended behaviour found in this README.md to find out what went wrong. When you think you're ready to resubmit, push the changes
-back onto your repository, and re-open the PR. The workflow will check it again when it runs.
+back onto your repository, and open a new Pull Request. The workflow will check it again when it runs.
 
 ## Support
 
