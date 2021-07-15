@@ -102,10 +102,6 @@ jobs:
     - name: Issue Badge
       run: node .cbc/badgeAPI.js ${{secrets.USERNAME}} ${{secrets.PASSWORD}} ${{ steps.userEmail.outputs.content }}
     
-    - name: Remove Previous Labels
-      if: always()
-      run: node .cbc/removeAllLabels.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }}
-    
     - name: Add Failure Comment on Make run
       if: always() && steps.runMake.outcome == 'failure'
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile1.txt didn't run"
@@ -117,3 +113,7 @@ jobs:
         pull-request-number:  ${{ steps.number.outputs.content }}
         comment: Auto-closing pull request after submission
         delete-branch: false
+
+    - name: Remove Previous Labels
+      if: always()
+      run: node .cbc/removeAllLabels.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }}
