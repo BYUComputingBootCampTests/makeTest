@@ -40,24 +40,28 @@ git push origin main
 Make sure that you put your email into the 'email.txt' file, or you won't recieve your badge if you pass.
 
 Then, visit the repository on Github and open a pull request with our repository here,
-which is all you will need to do to pass-off your code (i.e. You won't need to merge 
-the pull request with the main branch or do anything else). There is a workflow on the main
-repository that should run every 10 minutes, and it will check your code. PRs will be run in the
-order recieved.
+which is all you will need to do to pass-off your code. You won't need to merge your
+PR with the main repository or anything else. There is a workflow on the main
+repository that should run every 10 minutes: it will check your code, and close the
+pull request when its finished. So after a bit, check the Pull Request to see the results. 
+It will have comments describing which parts of the test you passed.
 
-After a bit, check the GitHub Actions tab to see the results for your Pull Request.
+### If you passed...
+Congradulations! You've passed the Make test, and you have been certified
+by the BYU Computing BootCamp to have "Make" Knowledge. You should recieve an email with your badge contained inside. The
+Pull Request has a comment with the email that the badge was sent to, so if you didn't recieve it, check to make sure
+you entered your email correctly. Show off the "Make" badge to potential employers, or use it with other Computing BootCamp 
+badges to gain the "Software Development Knowledge" badge!
 
-If it's red, that means you must have failed a check somewhere. You might have deleted or renamed one of the passoff files, forgot
-to implement a function, or missed a bug in your code! Whatever it is, you'll have to make a few changes to your code and try again.
-The pull request will automatically be closed once it's done being graded, so you can re-open the pull request when you are ready
-to try again.
-
-If it's green, that means you passed all of the checks, so congradulations! You've passed the Make test, and you have been certified
-by the BYU Computing BootCamp to have "Make" Knowledge. You should recieve an email with your badge contained inside.
-Show it off to potential employers, or use it with other Computing BootCamp badges to gain the "Software Development Knowledge"
-badge!
+### If you didn't pass...
+Don't worry, you'll get there eventually! You probably just have a small mistake. You might have deleted or renamed 
+one of the passoff files, forgot to implement a function, or missed a bug in your code! Whatever it is, you'll have to make a few 
+changes to your code and try again. Check in the Pull Request to see which part of the passoff you failed at, and then try to
+duplicate the results on your local machine (by looking at the pass-off workflow files). Compare your output on your machine to
+the intended behaviour found in this README.md to find out what went wrong. When you think you're ready to resubmit, push the changes
+back onto your repository, and re-open the PR. The workflow will check it again when it runs.
 
 ## Support
 
 Need support, have questions, or think you've found a bug in the repository? Think you should have recieved a badge when
-you didn't, or that the checks are potentially broken? Reach out to danielcbutter@gmail.com.
+you didn't, or that the checks are potentially broken? Reach out to byucomputingbootcamptests@gmail.com.
