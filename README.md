@@ -48,7 +48,7 @@ This rule should be called "clean", and should remove the tree executable, compi
 
 ## Submitting
 
-Once you've completed the problem, add, commit, and push your changes to the branch:
+Once you've completed the problems, add, commit, and push your changes to the branch:
 ```
 git add .
 git commit -m <message>
@@ -81,4 +81,5 @@ back onto your repository, and open a new Pull Request. The workflow will check 
 ## Support
 
 Need support, have questions, or think you've found a bug in the repository? Think you should have recieved a badge when
-you didn't, or that the checks are potentially broken? Reach out to byucomputingbootcamptests@gmail.com.
+you didn't, or that the checks are potentially broken? Reach out to byucomputingbootcamptests@gmail.com, or open an issue here on
+GitHub.
