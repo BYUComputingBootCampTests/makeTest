@@ -63,7 +63,7 @@ jobs:
       run: ./tree > output.log
 
     - name: Comment
-      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "tree executable ran"
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Problem 1 tree executable ran"
 
     - name: Read Output
       id: output
@@ -80,7 +80,7 @@ jobs:
         expected: ${{ secrets.PROGRAM_OUTPUT }}
     
     - name: Comment
-      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "tree executable output is correct"
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Problem 1 tree executable output is correct"
 
     - name: Make clean
       id: makeClean
@@ -118,6 +118,91 @@ jobs:
     
     - name: Comment
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile1.txt doesn't contain Variables, Automatic Variables, Pattern Matching, or Makefile Functions"
+      
+      #Problem 2 Testing
+    - name: Get Make File for Problem 2
+      id: getMakeFile2
+      run: node .cbc/getFile.js ${{ secrets.AUTH_TOKEN }} ${{ steps.repo.outputs.content }} MakeFiles/MakeFile2.txt > Makefile
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile2.txt found"
+    
+    - name: Run Make
+      id: runMake2
+      run: make
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile2.txt ran"
+
+    - name: Run program
+      id: runProgram2
+      run: ./tree > output.log
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Problem 2 tree executable ran"
+
+    - name: Read Output
+      id: output2
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: output.log
+
+    - name: Assert Proper Output
+      id: properOutput2
+      uses: therussiankid92/gat@v1.5
+      with:
+        assertion: should.equal
+        actual: ${{ steps.output2.outputs.content }}
+        expected: ${{ secrets.PROGRAM_OUTPUT }}
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Problem 2 tree executable output is correct"
+
+    - name: Assert compiled.txt contains all files used
+      id: assertCompiled.txt
+      run: node .cbc/assertContains.js compiled.txt ${{ secrets.COMPILED_TXT }}
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "compiled.txt contains proper file names"
+    
+    - name: Make clean
+      id: makeClean2
+      run: make clean
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile2.txt clean function ran"
+
+    - name: Check that Files are gone
+      continue-on-error: true
+      run: |
+        echo "Found? " > clean.txt
+        test -f tree && echo "Yes" >> clean.txt
+        test -f compiled.txt && echo "Yes" >> clean.txt
+        test -f *.o && echo "Yes" >> clean.txt
+
+    - name: Read Find Output
+      id: find2
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: clean.txt
+
+    - name: Assert File Gone
+      id: fileGone2
+      uses: therussiankid92/gat@v1.5
+      with:
+        assertion: should.equal
+        actual: ${{ steps.find2.outputs.content }}
+        expected: Found?
+    
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile2.txt clean function deleted the tree executable, compiled.txt, and .o files"
+
+    - name: Assert no "main", "leaves", "Leaves", "roots", "Roots", "branches", or "Branches" found in Makefile2.txt
+      id: assertNoClassNames
+      run: node .cbc/assertDoesNotContain.js Makefile main,leaves,Leaves,roots,Roots,branches,Branches
+    
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile2txt doesn't have main, leaves, Leaves, roots, Roots, branches, or Branches in it"
 
       #Issue Badge  
     - name: Get email.txt
@@ -151,11 +236,11 @@ jobs:
     
     - name: Failure Comment
       if: always() && steps.runProgram.outcome == 'failure'
-      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - tree executable crashed"
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Problem 1 tree executable crashed"
     
     - name: Failure Comment
       if: always() && steps.properOutput.outcome == 'failure'
-      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - tree executable output was incorrect"
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Problem 1 tree executable output was incorrect"
     
     - name: Failure Comment
       if: always() && steps.makeClean.outcome == 'failure'
@@ -163,12 +248,46 @@ jobs:
     
     - name: Failure Comment
       if: always() && steps.fileGone.outcome == 'failure'
-      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile1.txt clean didn't delete tree executable"
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile1.txt clean didn't delete the tree executable"
 
     - name: Failure Comment
       if: always() && steps.assertNoVariables.outcome == 'failure'
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile1.txt has Variables, Automatic Variables, Pattern Matching, or Makefile Functions"
 
+      #Failure Output for Problem 2
+    - name: Failure Comment
+      if: always() && steps.getMakeFile2.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - No Makefile2.txt found"
+
+    - name: Failure Comment
+      if: always() && steps.runMake2.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile2.txt didn't run"
+    
+    - name: Failure Comment
+      if: always() && steps.runProgram2.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Problem 2 tree executable crashed"
+
+    - name: Failure Comment
+      if: always() && steps.properOutput2.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Problem 2 tree executable output was incorrect"
+
+    - name: Failure Comment
+      if: always() && steps.assertCompiled.txt.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - compiled.txt doesn't exist, or doesn't contain all files used"
+    
+    - name: Failure Comment
+      if: always() && steps.makeClean2.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile2.txt clean didn't run"
+
+    - name: Failure Comment
+      if: always() && steps.fileGone2.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile2.txt clean didn't delete the tree executable, compiled.txt, or all of the .o files"\
+
+     - name: Failure Comment
+      if: always() && steps.assertNoClassNames.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile2txt contains main, leaves, Leaves, roots, Roots, branches, or Branches"
+
+      #Failure Output for Issue Badge
     - name: Failure Comment
       if: always() && steps.getEmail.outcome == 'failure'
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - No email.txt found"

@@ -19,7 +19,7 @@ git clone https://github.com/<your_username>/makeTest.git
 Now you are now ready to start coding!
 Start out by entering your email into the 'email.txt' file, so that we can properly give you your badge when you pass the test.
 
-## Problem 1 - Makefile
+## Problem 1 - Makefile1.txt
 
 Write a Makefile that implements the following functionality. You'll store the contents of this Makefile at "MakeFiles/MakeFile1.txt". It
 should be very simple, and shouldn't use variables, automatic variables, pattern matching, or Makefile functions. It should have the following two rules:
@@ -29,6 +29,21 @@ This rule should be the first rule in the file. It should be called "tree", and 
 
 #### clean:
 This rule should be called "clean", and it should remove the "tree" executable if there is one.
+
+## Problem 2 - Makefile2.txt
+
+Write a Makefile that implements the following functionality. You'll store the contents of this Makefile at "MakeFiles/MakeFile2.txt". It
+will be complicated, and shouldn't have the words "main", "leaves", "Leaves", "roots", "Roots", "branches", or "Branches" anywhere in the file. It should have at least the following three rules:
+
+#### $(TARGET):
+This rule should be the first rule in the file. It should be called "$(TARGET)", and it should generate an executable called "tree" with the g++ compiler. It should use all of the .h and .c files found in the directory. Then, it should save the names of all the files that it used
+in a text file called "compiled.txt". Note that the files should be 
+
+#### %.o:
+This rule should be called "%.o", and uses pattern matching to generate all the necessary .o files for the $(TARGET) rule.
+
+#### clean:
+This rule should be called "clean", and should remove the tree executable, compiled.txt file, and the .o files.
 
 ## Submitting
 
