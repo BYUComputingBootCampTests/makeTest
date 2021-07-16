@@ -8,6 +8,8 @@ TARGET=tree
 
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) 
+	find *.cpp > compiled.txt
+	find *.h >> compiled.txt
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $<
