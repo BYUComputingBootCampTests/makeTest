@@ -114,7 +114,7 @@ jobs:
 
     - name: Assert No Variables, Automatic Variables, Pattern Matching, or Makefile Functions in MakeFile1.txt
       id: assertNoVariables
-      run: node .cbc/assertDoesNotContain.js Makefile $,(,),@,<,%,=
+      run: node .cbc/assertDoesNotContain.js Makefile $,@,<,%,=
     
     - name: Comment
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile1.txt doesn't contain Variables, Automatic Variables, Pattern Matching, or Makefile Functions"
