@@ -1,6 +1,3 @@
-### To be implemented:
-- More problems in this test, potentially for all 6 Makefiles in the tutorial
-
 # BYU Computing Bootcamp - Make Tests
 
 So you believe that you've mastered Make, do you? Well, it's time to prove it! Upon completion of this test, you will recieve
