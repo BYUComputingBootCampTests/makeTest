@@ -1,10 +1,11 @@
-### To be implemented:
-- More problems in this test, potentially for all 6 Makefiles in the tutorial
+![CBCLogo](.cbc/CBClogo.png)
 
 # BYU Computing Bootcamp - Make Tests
 
 So you believe that you've mastered Make, do you? Well, it's time to prove it! Upon completion of this test, you will recieve
-the "Make Knowledge Badge" from the BYU Computing Bootcamp to attest of your knowledge and expertise. Here's a link to the badge so that you can go admire it: [Click here!](https://badgr.com/public/badges/opPKYN_pQFi6UWl1Q_aT5Q)
+the "Make Knowledge Badge" from the BYU Computing Bootcamp to attest of your knowledge and expertise. Here's a link to the badge on Badgr so that you can go admire it: [Click here!](https://badgr.com/public/badges/opPKYN_pQFi6UWl1Q_aT5Q)
+
+![Make Badge](https://media.badgr.com/uploads/badges/8e853a0b-726b-4101-8cb0-4b299926f19d.png)
 
 While completing this test, you are not allowed to copy paste code from another source. If you are unable to complete the test this way, go back and practice some more! We don't do this because we're mean, but rather because we can't attest to your knowledge unless you can do it on your own. This means that when you do complete the test, you will actually be an expert in Make, rather than someone who knows how to copy and paste from the Internet.
 
