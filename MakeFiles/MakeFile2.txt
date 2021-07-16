@@ -15,4 +15,4 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -f $(TARGET) $(OBJS)
+	rm -f $(TARGET) $(OBJS) compiled.txt
