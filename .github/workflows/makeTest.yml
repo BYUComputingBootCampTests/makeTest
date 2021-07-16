@@ -197,6 +197,13 @@ jobs:
     - name: Comment
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile2.txt clean function deleted the tree executable, compiled.txt, and .o files"
 
+    - name: Assert %.o rule
+      id: assertORule
+      run: node .cbc/assertContains.js Makefile "%.0:"
+
+    - name: Comment
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile2txt contains a %.o rule"
+
     - name: Assert no "main", "leaves", "Leaves", "roots", "Roots", "branches", or "Branches" found in Makefile2.txt
       id: assertNoClassNames
       run: node .cbc/assertDoesNotContain.js Makefile main,leaves,Leaves,roots,Roots,branches,Branches
@@ -283,7 +290,11 @@ jobs:
       if: always() && steps.fileGone2.outcome == 'failure'
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile2.txt clean didn't delete the tree executable, compiled.txt, or all of the .o files"\
 
-     - name: Failure Comment
+    - name: Failure Comment
+      if: always() && steps.assertORule.outcome == 'failure'
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile2txt doesn't contain a %.o rule"
+
+    - name: Failure Comment
       if: always() && steps.assertNoClassNames.outcome == 'failure'
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Makefile2txt contains main, leaves, Leaves, roots, Roots, branches, or Branches"
 
