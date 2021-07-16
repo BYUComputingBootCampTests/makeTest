@@ -114,7 +114,7 @@ jobs:
 
     - name: Assert No Variables, Automatic Variables, Pattern Matching, or Makefile Functions in MakeFile1.txt
       id: assertNoVariables
-      run: node .cbc/assertDoesNotContain.js Makefile $,@,<,%,=
+      run: node .cbc/assertDoesNotContain.js Makefile "$,@,<,%,=""
     
     - name: Comment
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile1.txt doesn't contain Variables, Automatic Variables, Pattern Matching, or Makefile Functions"
@@ -206,7 +206,7 @@ jobs:
 
     - name: Assert no "main", "leaves", "Leaves", "roots", "Roots", "branches", or "Branches" found in Makefile2.txt
       id: assertNoClassNames
-      run: node .cbc/assertDoesNotContain.js Makefile main,leaves,Leaves,roots,Roots,branches,Branches
+      run: node .cbc/assertDoesNotContain.js Makefile "main,leaves,Leaves,roots,Roots,branches,Branches"
     
     - name: Comment
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile2txt doesn't have main, leaves, Leaves, roots, Roots, branches, or Branches in it"
