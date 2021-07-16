@@ -38,7 +38,7 @@ will be complicated, and shouldn't have the words "main", "leaves", "Leaves", "r
 
 #### $(TARGET):
 This rule should be the first rule in the file. It should be called "$(TARGET)", and it should generate an executable called "tree" with the g++ compiler. It should use all of the .h and .c files found in the directory. Then, it should save the names of all the files that it used
-in a text file called "compiled.txt". Note that the files should be 
+in a text file called "compiled.txt".
 
 #### %.o:
 This rule should be called "%.o", and uses pattern matching to generate all the necessary .o files for the $(TARGET) rule.
