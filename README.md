@@ -1,4 +1,4 @@
-<img src=".cbc/CBClogo.png" alt="Computing Boot Camp Logo" width="50"/>
+<img src=".cbc/CBClogo.png" alt="Computing Boot Camp Logo" width="100"/>
 
 # BYU Computing Bootcamp - Make Tests
 
