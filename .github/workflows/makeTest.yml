@@ -159,7 +159,7 @@ jobs:
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Problem 2 tree executable output is correct"
 
     - name: Assert compiled.txt contains all files used
-      id: assertCompiled.txt
+      id: assertCompiled
       run: node .cbc/assertContains.js compiled.txt ${{ secrets.COMPILED_TXT }}
 
     - name: Comment
@@ -279,7 +279,7 @@ jobs:
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - Problem 2 tree executable output was incorrect"
 
     - name: Failure Comment
-      if: always() && steps.assertCompiled.txt.outcome == 'failure'
+      if: always() && steps.assertCompiled.outcome == 'failure'
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Error - compiled.txt doesn't exist, or doesn't contain all files used"
     
     - name: Failure Comment
