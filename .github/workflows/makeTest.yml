@@ -199,7 +199,7 @@ jobs:
 
     - name: Assert %.o rule
       id: assertORule
-      run: node .cbc/assertContains.js Makefile "%.0:"
+      run: node .cbc/assertContains.js Makefile "%.o:"
 
     - name: Comment
       run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Makefile2txt contains a %.o rule"
