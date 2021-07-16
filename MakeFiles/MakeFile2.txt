@@ -1,1 +1,15 @@
-   
+TARGET=tree
+COMPILER=g++
+SCRS=$(wildcard *.cpp)
+OBJS=$(SRCS:.cpp=.o)
+
+$(TARGET): $(OBJS)
+	$(COMPILER) -o $@ $^
+	find *.cpp > compiled.txt
+	find *.h >> compiled.txt
+
+%.o: %.cpp %.h
+	$(COMPILER) -c $<
+
+clean:
+	rm $(TARGET) $(OBJS) compiled.txt
