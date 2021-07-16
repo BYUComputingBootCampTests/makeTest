@@ -5,8 +5,6 @@ OBJS=$(SRCS:.cpp=.o)
 
 $(TARGET): $(OBJS)
 	$(COMPILER) -o $@ $^
-	find *.cpp > compiled.txt
-	find *.h >> compiled.txt
 
 %.o: %.cpp %.h
 	$(COMPILER) -c $<
