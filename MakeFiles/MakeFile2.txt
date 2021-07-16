@@ -1,1 +1,16 @@
-   
+CC=g++
+CFLAGS=-Wall
+HEADERS=$(wildcard *.h)
+SRCS=$(wildcard *.cpp)
+OBJS=$(SRCS:.cpp=.o)
+TARGET=tree
+
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) 
+
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $<
+
+clean:
+	rm -f $(TARGET) $(OBJS)
