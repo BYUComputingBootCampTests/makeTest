@@ -1,4 +1,4 @@
-![CBCLogo](.cbc/CBClogo.png)
+<img src=".cbc/CBClogo.png" alt="drawing" width="200"/>
 
 # BYU Computing Bootcamp - Make Tests
 
