@@ -1,1 +1,16 @@
-   
+CC=g++
+CFLAGS=-Wall
+TARGET=tree
+SRCS=$(wildcard *.cpp)
+HEADERS=$(wildcard *.h)
+OBJS=$(SRCS:.cpp=.o)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+	echo $(HEADERS) $(SRCS) > compiled.txt
+
+%.o: %.cpp $(HEADERS)
+	$(CC) $(CFLAGS) -c $< 
+
+clean:
+	rm $(TARGET) $(OBJS) compiled.txt
