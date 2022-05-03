@@ -4,9 +4,10 @@ OBJS=$(SRCS:.cpp=.o)
 HEADERS=$(wildcard *.h)
 $(TARGET): $(OBJS)
 	g++ $(OBJS) -o $(TARGET)
+    cat $(SRCS) $(HEADERS) > compile.txt
 
 %.o: %.cpp $(HEADERS)
 	g++ -c $<
 
 clean:
-	rm $(TARGET)
+	rm $(TARGET) $(OBJS)
