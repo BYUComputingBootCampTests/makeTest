@@ -4,7 +4,7 @@ OBJS=$(SRCS:.cpp=.o)
 HEADERS=$(wildcard *.h)
 $(TARGET): $(OBJS)
 	g++ $(OBJS) -o $(TARGET)
-	cat $(SRCS) $(HEADERS) > compile.txt
+	cat $(SRCS) $(HEADERS) > compiled.txt
 
 %.o: %.cpp $(HEADERS)
 	g++ -c $<
