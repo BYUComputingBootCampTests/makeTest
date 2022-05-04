@@ -1,4 +1,4 @@
-   TARGET = tree
+TARGET = tree
 SRCS = $(wildcard *.cpp)
 HEADERS = $(wildcard *.h)
 OBJS = $(SRCS:.cpp=.o)
