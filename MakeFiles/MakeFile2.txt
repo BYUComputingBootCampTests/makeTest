@@ -1,1 +1,17 @@
-   
+CC=gcc
+CFLAGS=-03 Wall
+TARGET=tree
+SRCS=$(wildcard *.c)
+HEADERS=$(wildcard *.h)
+OBJS=$(SRCS:.c=.o)
+
+$(TARGET): $(SRCS) $(HEADERS)
+  $(CC) $(CFLAGS) -o $@ $^
+  $(SRCS) > compiled.txt
+  $(HEADER) > compiled.txt
+  
+%.o: $(SRCS) $(HEADERS)
+  $(CC) $(CFLAGS) -c $<
+
+clean:
+  rm $(TARGET) *.o compiled.txt
