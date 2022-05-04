@@ -1,6 +1,6 @@
 CC=g++
 
-tree: leaves.c leaves.h branches.c branches.h roots.c roots.h main.c
-    $(CC) -o $@ $^
+tree: leaves.cpp Leaves.h branches.cpp Branches.h roots.cpp Roots.h main.cpp
+	$(CC) -o $@ $^
 clean:
-    rm tree
+	rm tree
