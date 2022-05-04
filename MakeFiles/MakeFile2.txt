@@ -7,8 +7,8 @@ OBJS=$(SRCS:.c=.o)
 
 $(TARGET): $(SRCS) $(HEADERS)
   $(CC) $(CFLAGS) -o $@ $^
-  $(SRCS) > compiled.txt
-  $(HEADER) > compiled.txt
+  $(SRCS) >> compiled.txt
+  $(HEADER) >> compiled.txt
   
 %.o: $(SRCS) $(HEADERS)
   $(CC) $(CFLAGS) -c $<
