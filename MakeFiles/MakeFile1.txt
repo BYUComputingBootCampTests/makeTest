@@ -1,1 +1,6 @@
-     
+CC=g++
+
+tree: leaves.c leaves.h branches.c branches.h roots.c roots.h main.c
+    $(CC) -o $@ $^
+clean:
+    rm tree
