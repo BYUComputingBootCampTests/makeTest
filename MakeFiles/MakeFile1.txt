@@ -1,1 +1,5 @@
-     
+tree: leaves.c branches.c roots.c main.c leaves.h branches.h roots.h
+    gcc leaves.c branches.c roots.c main.c -o tree
+    
+clean:
+    rm tree
