@@ -11,7 +11,7 @@ $(TARGET): $(OBJS)
 	g++ -o %.o %.cpp HEADERS
 
 compiled.txt:
-	echo $(SRCS) $(OBJS) >> compiled.txt 
+	echo $(SRCS) $(HEADERS) >> compiled.txt 
 
 clean:
 	rm tree
