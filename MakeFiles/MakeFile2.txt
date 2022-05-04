@@ -6,12 +6,12 @@ HEADERS=$(wildcard *.h)
 OBJS=$(SRCS:.c=.o)
 
 $(TARGET): $(SRCS) $(HEADERS)
-         $(CC) $(CFLAGS) -o $@ $^
-         $(SRCS) >> compiled.txt
-         $(HEADER) >> compiled.txt
+        $(CC) $(CFLAGS) -o $@ $^
+        $(SRCS) >> compiled.txt
+        $(HEADER) >> compiled.txt
   
 %.o: $(SRCS) $(HEADERS)
-         $(CC) $(CFLAGS) -c $<
+        $(CC) $(CFLAGS) -c $<
 
 clean:
-         rm $(TARGET) *.o compiled.txt
+	rm $(TARGET) *.o compiled.txt
