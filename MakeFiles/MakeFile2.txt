@@ -1,1 +1,13 @@
-   
+CC=g++
+TARGET=tree
+SRCS=$(wildcard *.cpp)
+OBJS=$(SRCS:.cpp=.o)
+
+tree: $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS)
+
+%.o: %.cpp %.h
+	$(CC) -c $<
+
+clean:
+	rm $(TARGET) $(OBJS)
