@@ -230,7 +230,7 @@ jobs:
       run: node .cbc/badgeAPI.js ${{secrets.USERNAME}} ${{secrets.PASSWORD}} ${{ steps.userEmail.outputs.content }}
     
     - name: Comment
-      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Badge Issued. Congraduations!"
+      run: node .cbc/makeComment.js ${{ secrets.AUTH_TOKEN }} ${{ steps.number.outputs.content }} "Badge Issued. Congratulations!"
     
       #Failure Output for Problem 1
     - name: Failure Comment
