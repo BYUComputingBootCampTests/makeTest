@@ -1,1 +1,12 @@
-   
+TARGET= tree
+SOURCES= $(wildcard *.cpp)
+HEADERS= $(wildcard *.h)
+OBJECTS:= $(SOURCES:.cpp=.o)
+$(TARGET): $(OBJECTS)
+	g++ $(OBJECTS) -o $(TARGET)
+	echo $(OBJECTS) > compiled.txt
+%.o: %.c $(HEADERS)
+	g++ -c -o $@ $<
+
+clean: 
+	rm $(TARGET) *.o compiled.txt -f
