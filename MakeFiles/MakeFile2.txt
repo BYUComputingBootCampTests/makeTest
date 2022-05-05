@@ -4,7 +4,7 @@ HEADERS= $(wildcard *.h)
 OBJECTS:= $(SOURCES:.cpp=.o)
 $(TARGET): $(OBJECTS)
 	g++ $(OBJECTS) -o $(TARGET)
-	echo $(OBJECTS) > compiled.txt
+	echo $(HEADERS) $(SOURCES) > compiled.txt
 %.o: %.c $(HEADERS)
 	g++ -c -o $@ $<
 
