@@ -1,1 +1,18 @@
-   
+C++ =g++
+CFLAGS =-Wall
+OFILE =-c
+TARGET =tree
+SRCS=$(wildcard *.cpp)
+HEADERS=$(wildcard *.h)
+OBJS=$(SRCS:.cpp=.o)
+
+$(TARGET): $(OBJS)
+	$(C++) $(CFLAGS) -o $@ $^
+	find *.cpp > compiled.txt
+	find *.h >> compiled.txt
+
+%.o: %.cpp $(HEADERS)
+	$(C++) $(CFLAGS) $(OFILE) $<
+
+clean:
+	rm $(TARGET) *.o compiled.txt
