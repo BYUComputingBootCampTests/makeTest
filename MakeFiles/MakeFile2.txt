@@ -3,11 +3,12 @@ TARGET=tree
 SRCS=$(wildcard *.cpp)
 OBJS=$(SRCS:.cpp=.o)
 
-tree: $(OBJS)
+$(TARGET): $(OBJS)
 	$(CC) -o $(TARGET) $(OBJS)
+	@echo "$(OBJS)" > compiled.txt
 
 %.o: %.cpp %.h
 	$(CC) -c $<
 
 clean:
-	rm $(TARGET) $(OBJS)
+	rm $(TARGET) $(OBJS) compiled.txt
