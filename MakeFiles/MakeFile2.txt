@@ -1,1 +1,17 @@
-   
+CC = g++
+SRCS=$(wildcard *.cpp)
+RMV=$(wildcard *.o)
+HEADERS=$(wildcard *.h)
+FILE=compiled.txt
+OBJ=$(SRCS:.cpp=.o)
+TARGET=tree
+
+$(TARGET): $(OBJ)
+	$(CC) -o $(TARGET) $^
+	@echo $(SRCS) $(HEADERS) > compiled.txt
+
+%.o: %.cpp $(HEADERS)
+	$(CC) -c $<
+
+clean:
+	rm -f $(TARGET) $(FILE) $(RMV)
