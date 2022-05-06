@@ -6,9 +6,8 @@ HDRS=$(wildcard *.h)
 
 $(TARGET): $(OBJS)
 	$(CC) -o $(TARGET) $(OBJS)
-	@echo "$(OBJS)" > compiled.txt
-	@echo "$(SRCS)" > compiled.txt
-	@echo "$(HDRS)" > compiled.txt
+	@echo "$(SRCS)" >> compiled.txt
+	@echo "$(HDRS)" >> compiled.txt
 
 %.o: %.cpp %.h
 	$(CC) -c $<
