@@ -1,11 +1,8 @@
 CC=gcc
 CFLAGS=-Wall
 
-tree: leaves.c leaves.h branches.c branches.h roots.c roots.h main.c   
-    $(CC) $(CFLAGS) -o tree leaves.c branches.c roots.c main.calc
+tree: leaves.cpp leaves.h branches.cpp branches.h roots.cpp roots.h main.cpp   
+    $(CC) $(CFLAGS) -o tree leaves.cpp branches.cpp roots.cpp main.cpp
     
 clean:
     rm tree *.o
-
-
-
