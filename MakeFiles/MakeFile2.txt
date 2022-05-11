@@ -1,1 +1,18 @@
-   
+CC=g++
+TARGET=tree
+
+SRCS=$(wildcard *.cpp)
+HEADERS=$(wildcard *.h)
+OBJS=$(SRCS:.cpp=.o)
+LOG=compiled.txt
+
+$(TARGET): $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS)
+	echo $(HEADERS) > $(LOG)
+	echo $(SRCS) >> $(LOG)
+
+%.o: %.c $(HEADERS)
+	$(CC) -c $<
+
+clean:
+	rm $(TARGET) $(LOG) $(OBJS)
