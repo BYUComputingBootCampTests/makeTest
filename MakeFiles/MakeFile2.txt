@@ -4,11 +4,13 @@ SOURCES=$(wildcard *.cpp)
 HEADERS=$(wildcard *.h)
 OBJECTS=$(SOURCES:.cpp=.o)
 
+echo $(SOURCES) > compiled.txt
+echo $(HEADERS) >> compiled.txt
+
 $(TARGET): $(OBJECTS)
 	$(CC) -o $@ $^
-	echo $^ > compiled.txt
 
-%.o: $(SOURCES) $(HEADERS)
+%.o: $(SOURCES)
 	$(CC) -c $<
 
 clean:
