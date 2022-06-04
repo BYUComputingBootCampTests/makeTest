@@ -1,1 +1,6 @@
-     
+tree: leaves.cpp leaves.h branches.cpp branches.h roots.cpp roots.h main.cpp
+	g++ -o tree leaves.cpp branches.cpp roots.cpp main.cpp
+
+clean:
+	rm tree
+
