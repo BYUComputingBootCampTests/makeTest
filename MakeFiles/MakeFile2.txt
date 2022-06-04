@@ -9,7 +9,7 @@ $(TARGET): $(OBJECTS)
 	echo $(SOURCES) > compiled.txt
 	echo $(HEADERS) >> compiled.txt
 
-%.o: $(SOURCES)
+%.o: %.cpp
 	$(CC) -c $<
 
 clean:
