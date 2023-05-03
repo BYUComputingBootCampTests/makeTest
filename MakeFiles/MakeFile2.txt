@@ -1,1 +1,15 @@
-   
+TARGET= tree
+FLAGS = -O3 -Wall
+SRCS = $(wildcard *.cpp)
+HEADERS = $(wildcard *.h)
+CC = g++
+OBJS = $(SRCS:.cpp=.o);
+
+$(TARGET): $(OBJS)
+	$(CC)  -o $@ $^
+
+%.o: %.cpp $(HEADERS)
+	$(CC)  -c $<
+
+clean:
+	rm tree *.o compiled.txt
