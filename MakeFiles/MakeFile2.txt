@@ -1,14 +1,14 @@
 TARGET=tree
 CC=g++
 HEADERS=$(wildcard *.h)
-SRCS=$(wildcard.cpp)
-OBJS=$(SRCS:.c=.o)
+SRCS=$(wildcard *.cpp)
+OBJS=$(SRCS:.cpp=.o)
 
 $(TARGET): $(OBJS)
 	$(CC) $(OBJS) -o $(TARGET)
 	touch compiled.txt
-	HEADERS >> compiled.txt
-	SRCS >> compiled.txt
+	@echo "$(HEADERS)" >> compiled.txt
+	@echo "$(SRCS)" >> compiled.txt
     
 
 %.o: %.cpp
