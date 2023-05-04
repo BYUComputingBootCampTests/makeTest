@@ -1,7 +1,7 @@
 TARGET = tree
 CC = g++
 HEADERS = $(wildcard *.h)
-SRCS = $(wildcard.c)
+SRCS = $(wildcard.cpp)
 OBJS = $(SRCS:.c=.o)
 
 $(TARGET): $(OBJS)
