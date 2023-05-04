@@ -1,8 +1,8 @@
-TARGET = tree
-CC = g++
-HEADERS = $(wildcard *.h)
-SRCS = $(wildcard.cpp)
-OBJS = $(SRCS:.c=.o)
+TARGET=tree
+CC=g++
+HEADERS=$(wildcard *.h)
+SRCS=$(wildcard.cpp)
+OBJS=$(SRCS:.c=.o)
 
 $(TARGET): $(OBJS)
 	$(CC) $(OBJS) -o $(TARGET)
@@ -11,7 +11,7 @@ $(TARGET): $(OBJS)
 	SRCS >> compiled.txt
     
 
-%.o: %c $(HEADERS)
+%.o: %.cpp
 	$(CC) -c $^
 
 clean:
