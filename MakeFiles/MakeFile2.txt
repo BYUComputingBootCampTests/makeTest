@@ -6,6 +6,7 @@ Headers=$(wildcard *.h)
 $(Target): $(Objects) $(Headers)
 	g++ $(Objects) -o $(Target)
 	ls $(Objects) > compiled.txt 
+	ls $(Sources) >> compiled.txt
 	ls $(Headers) >> compiled.txt 
 
 %.o: %.c $(Headers)
