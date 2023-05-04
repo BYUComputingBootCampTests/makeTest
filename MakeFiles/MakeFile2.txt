@@ -1,4 +1,4 @@
-CC=g++
+CXX=g++
 CFLAGS=-Wall
 SRCS=$(wildcard *.cpp)
 HDRS=$(wildcard *.h)
@@ -6,10 +6,12 @@ OBJS=$(SRCS:.cpp=.o)
 TARGET=tree
 
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CXX) $(CFLAGS) -o $@ $^
+	echo $(HDRS) >> compiled.txt
 
-%.o: %.c $(HDRS)
-	$(CC) $(CFLAGS) -c $<
+%.o: %.cpp $(HDRS)
+	$(CXX) $(CFLAGS) -c $<
+	echo $< >> compiled.txt
 
 clean:
 	rm $(TARGET) *.o compiled.txt
