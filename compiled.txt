@@ -1,5 +1,1 @@
-g++  -c branches.cpp
-g++  -c leaves.cpp
-g++  -c main.cpp
-g++  -c roots.cpp
-g++  -o tree branches.o leaves.o main.o roots.o
+branches.cpp leaves.cpp main.cpp roots.cpp Branches.h Leaves.h Roots.h
