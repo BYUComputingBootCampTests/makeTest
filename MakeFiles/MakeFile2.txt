@@ -1,15 +1,15 @@
-CC=gcc
+CC=g++
 CFLAGS=-Wall
-SRCS=$(wildcard *.c)
+SRCS=$(wildcard *.cpp)
 HDRS=$(wildcard *.h)
-OBJS=$(SCRS:.c=.o)
+OBJS=$(SRCS:.cpp=.o)
 TARGET=tree
 
 $(TARGET): $(OBJS)
-    $(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c $(HDRS)
-    $(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -c $<
 
 clean:
-    rm $(TARGET) *.o compiled.txt
+	rm $(TARGET) *.o compiled.txt
