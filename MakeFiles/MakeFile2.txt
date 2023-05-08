@@ -1,1 +1,14 @@
-   
+TARGET = mytree
+
+SOURCES = $(wildcard *.c)
+OBJECTS = $(SOURCES:.c=.o)
+
+$(TARGET): $(OBJECTS)
+	g++ -o $(TARGET) $(OBJECTS)
+	ls *.h *.c > compiled.txt
+
+%.o: %.c
+	g++ -c $< -o $@
+
+clean:
+	rm -f $(TARGET) compiled.txt $(OBJECTS)

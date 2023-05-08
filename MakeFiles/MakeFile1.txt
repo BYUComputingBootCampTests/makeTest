@@ -1,1 +1,5 @@
-     
+tree:
+	g++ -o tree leaves.c leaves.h branches.c branches.h roots.c roots.h main.c
+
+clean:
+	rm -f tree
